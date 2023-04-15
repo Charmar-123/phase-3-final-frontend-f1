@@ -10,23 +10,28 @@ const DriverStandingsCards = () => {
     useEffect(() => {
         fetch('http://localhost:9292/driverstandings')
             .then(res => res.json())
-            .then(data => setDriverStandings(data))
+            .then(data => {
+                console.log(data)
+                setDriverStandings(data)})
 
     }, [])
 
-    const driverStandingsCards = driverStandings.map(({ id, name, points, position, wins }) => {
+    const driverStandingsCards = driverStandings.map(({ id, name, points, position, wins, image_url }) => {
+    
         return (
+            
 
             < DriverCard
                 key={id}
                 name={name}
+                image_url={image_url}
 
             />
         )
     })
 
     return (
-        <Row>
+        <Row  xs={1} md={2} className="g-4 justify-content-center" >
         {driverStandingsCards}
         </Row>
     )
