@@ -11,7 +11,7 @@ const DriverStandingsCards = () => {
         fetch('http://localhost:9292/driverstandings')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setDriverStandings(data)})
 
     }, [])
