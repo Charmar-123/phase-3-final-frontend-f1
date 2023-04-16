@@ -15,59 +15,73 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
 
     const [fantasyLeagueTeams, setFantasyLeagueTeams] = useState([])
 
+    const fantasyLeagueTeamCards = fantasyLeagueTeams.map(({id, team_principle_id, constructor_id, first_driver_id, second_driver_id}) => {
+        const teamPrincipleName = teamPrincipleStandings.filter(t => t.id == team_principle_id)
+        const constructorName = constructorStandings.filter(t => t.id == constructor_id)
+        console.log(constructorName);
+        const firstDriverName = driverStandings.filter(t => t.id == first_driver_id)
+        const secondDriverName = driverStandings.filter(t => t.id == second_driver_id)
+
+        return(
+            <FantasyLeagueCard
+            key={id}
+            teamPrincipleName={teamPrincipleName[0].name}
+            constructorName={constructorName[0].name}
+            firstDriverName={firstDriverName[0].name}
+            secondDriverName={secondDriverName[0].name}
+            image_url={constructorName[0].image_url}
+            />
+        )
+
+    })
+
+    console.log(fantasyLeagueTeams.map((e)=> e.team_principle_id
+    ));
 
     const teamPrincipleChoices = teamPrincipleStandings.map(({ id, name }) => {
-        return (
-            <option
-            className=''
-                key={id}
-                value={id}>
-                {name}
-            </option>
-        )
+
+        if (!fantasyLeagueTeams.map((e)=> e.team_principle_id).includes(id)){
+            return (
+                <option
+                    key={id}
+                    value={id}>
+                    {name}
+                </option>
+            )
+        }
+
     }
     )
 
     const constructorStandingsChoices = constructorStandings.map(({ id, name }) => {
-        return (
-            <option
-            className=''
-                key={id}
-                value={id}
-                >
-                {name}
-            </option>
-        )
+        if (!fantasyLeagueTeams.map((e)=> e.constructor_id).includes(id)){
+            return (
+                <option
+                    key={id}
+                    value={id}>
+                    {name}
+                </option>
+            )
+        }
     }
     )
 
     const driverStandingsChoices = driverStandings.map(({ id, name }) => {
-        return (
-            <option
-            className=''
-                key={id}
-                value={id}>
-                {name}
-            </option>
-        )
+        // console.log(fantasyLeagueTeams.map((e)=> e.first_driver_id).concat(fantasyLeagueTeams.map((e)=> e.second_driver_id)));
+        if (!fantasyLeagueTeams.map((e)=> e.first_driver_id).concat(fantasyLeagueTeams.map((e)=> e.second_driver_id)).includes(id)){
+            return (
+                <option
+                    key={id}
+                    value={id}>
+                    {name}
+                </option>
+            )
+        }
     }
     )
 
     const [formData, setFormData] = useState()
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     // teamPrincipleChoices = teamPrincipleChoices.filter(choice => choice.props.value != formData.teamPrincipleID)
-    //     // console.log(teamPrincipleChoices);
-    //     // teamPrincipleChoices.forEach(choice => {
-    //     //     if (formData.teamPrincipleID == choice.props.value){
-    //     //         choice.props.className = "hide_option"
-    //     //         console.log(choice.props.className);
-                
-    //     //     }
-    //     //     // console.log(teamPrincipleChoices);
-    //     // });
-    // }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -93,24 +107,8 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
         setFormData({ ...formData, [name]: value});
     };
 
-    const fantasyLeagueTeamCards = fantasyLeagueTeams.map(({id, team_principle_id, constructor_id, first_driver_id, second_driver_id}) => {
-        const teamPrincipleName = teamPrincipleStandings.filter(t => t.id == team_principle_id)
-        
-        const constructorName = constructorStandings.filter(t => t.id == constructor_id)
-        const firstDriverName = driverStandings.filter(t => t.id == first_driver_id)
-        const secondDriverName = driverStandings.filter(t => t.id == second_driver_id)
-        console.log(secondDriverName[0].name);
-        return(
-            <FantasyLeagueCard
-            key={id}
-            teamPrincipleName={teamPrincipleName[0].name}
-            constructorName={constructorName[0].name}
-            firstDriverName={firstDriverName[0].name}
-            secondDriverName={secondDriverName[0].name}
-            />
-        )
 
-    })
+
 
 
     return (
