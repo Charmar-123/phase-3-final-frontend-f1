@@ -56,10 +56,21 @@ const App = () => {
 
   // Delete fantasy league team 
 
-  const handleDeleteCard = (id) =>{
+  const handleDeleteCard = (id) => {
     const updatedFantasyLeague = fantasyLeagueTeams.filter(
       (card) => card.id !== id)
-      setFantasyLeagueTeams(updatedFantasyLeague);
+    setFantasyLeagueTeams(updatedFantasyLeague);
+  }
+
+  function handleUpdateCard(updatedCardObj) {
+    const updatedCards = fantasyLeagueTeams.map((fantasyLeagueTeam) => {
+      if (fantasyLeagueTeam.id === updatedCardObj.id) {
+        return updatedCardObj;
+      } else {
+        return fantasyLeagueTeam;
+      }
+    });
+    setFantasyLeagueTeams(updatedCards);
   }
 
   return (
@@ -68,7 +79,7 @@ const App = () => {
       {/* <DriverStandingsCards  driverStandings={driverStandings}/> */}
       {/* <TeamPrincipleStandingsCards teamPrincipleStandings={teamPrincipleStandings}/> */}
       {/* <ConstructorStandings constructorStandings={constructorStandings}/> */}
-      <CreateTeams handleDeleteCard={handleDeleteCard} handlePostData={handlePostData} fantasyLeagueTeams={fantasyLeagueTeams} driverStandings={driverStandings} teamPrincipleStandings={teamPrincipleStandings} constructorStandings={constructorStandings} />
+      <CreateTeams handleUpdateCard={handleUpdateCard} handleDeleteCard={handleDeleteCard} handlePostData={handlePostData} fantasyLeagueTeams={fantasyLeagueTeams} driverStandings={driverStandings} teamPrincipleStandings={teamPrincipleStandings} constructorStandings={constructorStandings} />
     </>
 
   );

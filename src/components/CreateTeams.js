@@ -11,45 +11,11 @@ import { useEffect, useState } from 'react';
 import FantasyLeagueCard from './FantasyLeagueCard';
 
 
-const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStandings, fantasyLeagueTeams, handlePostData, handleDeleteCard }) => {
-    // const [fantasyLeagueTeams, setFantasyLeagueTeams] = useState([])
-
-    // useEffect(()=> {
-    //     fetch('http://localhost:9292/fantasy_league')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         // console.log(data);
-    //         setFantasyLeagueTeams(data)})
-    // },[])
-    
-    // console.log(teamPrincipleStandings[0].name);
+const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStandings, fantasyLeagueTeams, handlePostData, handleDeleteCard, handleUpdateCard }) => {
 
     
 
-    const fantasyLeagueTeamCards = fantasyLeagueTeams.map(({id, team_principle_id, constructor_id, first_driver_id, second_driver_id}) => {
-        const teamPrinciple = teamPrincipleStandings.filter(t => t.id == team_principle_id)
-        const constructor = constructorStandings.filter(t => t.id == constructor_id)
-        const firstDriver = driverStandings.filter(t => t.id == first_driver_id)
-        const secondDriver = driverStandings.filter(t => t.id == second_driver_id)
 
-        return(
-            <FantasyLeagueCard
-            key={id}
-            id={id}
-            teamPrincipleName={teamPrinciple[0].name}
-            constructorName={constructor[0].name}
-            // constuctorPoints={constructor[0].points}
-            firstDriverName={firstDriver[0].name}
-            firstDriverPoints={firstDriver[0].points}
-            secondDriverName={secondDriver[0].name}
-            secondDriverPoints={secondDriver[0].points}
-            image_url={constructor[0].image_url}
-
-            handleDeleteCard={handleDeleteCard}
-            />
-        )
-
-    })
 
     // console.log(fantasyLeagueTeams);
 
@@ -94,6 +60,35 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
         }
     }
     )
+
+    const fantasyLeagueTeamCards = fantasyLeagueTeams.map(({id, team_principle_id, constructor_id, first_driver_id, second_driver_id}) => {
+        const teamPrinciple = teamPrincipleStandings.filter(t => t.id == team_principle_id)
+        const constructor = constructorStandings.filter(t => t.id == constructor_id)
+        const firstDriver = driverStandings.filter(t => t.id == first_driver_id)
+        const secondDriver = driverStandings.filter(t => t.id == second_driver_id)
+
+        return(
+            <FantasyLeagueCard
+            key={id}
+            id={id}
+            teamPrincipleName={teamPrinciple[0].name}
+            constructorName={constructor[0].name}
+            firstDriverName={firstDriver[0].name}
+            firstDriverPoints={firstDriver[0].points}
+            secondDriverName={secondDriver[0].name}
+            secondDriverPoints={secondDriver[0].points}
+            image_url={constructor[0].image_url}
+
+            handleDeleteCard={handleDeleteCard}
+            handleUpdateCard={handleUpdateCard}
+
+            teamPrincipleChoices={teamPrincipleChoices}
+            constructorStandingsChoices={constructorStandingsChoices}
+            driverStandingsChoices={driverStandingsChoices}
+            />
+        )
+
+    })
 
     const [formData, setFormData] = useState()
 

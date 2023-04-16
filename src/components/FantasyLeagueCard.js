@@ -3,7 +3,14 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
-const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriverName, secondDriverName, image_url, constuctorPoints, firstDriverPoints, secondDriverPoints, handleDeleteCard }) => {
+import { useState } from 'react';
+import { Form } from 'react-bootstrap';
+
+const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriverName, secondDriverName, image_url, firstDriverPoints, secondDriverPoints, handleDeleteCard, teamPrincipleChoices, handleUpdateCard, constructorStandingsChoices, driverStandingsChoices }) => {
+
+    const [isEdit, setIsEdit] = useState(false)
+
+    const [formData, setFormData] = useState()
 
     const onDeleteClick = (id) => {
         fetch('http://localhost:9292/fantasy_league/' + id, {
@@ -12,20 +19,57 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
         handleDeleteCard(id)
 
     }
+
+    const handleChange= (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value});
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        fetch(`http://localhost:9292/fantasy_league/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                team_principle_id: formData.team_principle_id,
+                constructor_id: formData.constructor_id,
+                first_driver_id: formData.first_driver_id,
+                second_driver_id: formData.second_driver_id
+            }),
+        })
+            .then((r) => r.json())
+            .then((updatedCard) =>{ 
+                handleUpdateCard(updatedCard)
+                setIsEdit(false)});
+    }
+
+
     return (
         <Card border="warning" style={{ width: '18rem', marginLeft: "0.5rem", marginRight: "0.5rem" }}>
             <Card.Img variant="top" src={image_url} />
-            <Card.Body>
-                <Card.Title>Team Principle: {teamPrincipleName}</Card.Title>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
-                <ListGroup.Item>Constructor: {constructorName} <br /> Points: {firstDriverPoints + secondDriverPoints}</ListGroup.Item>
-                <ListGroup.Item>Driver: {firstDriverName} <br />Points: {firstDriverPoints}</ListGroup.Item>
-                <ListGroup.Item>Driver: {secondDriverName} <br />Points: {secondDriverPoints}</ListGroup.Item>
-            </ListGroup>
-            <Card.Body>
-                <Button onClick={() => onDeleteClick(id)}>Delete</Button>
-            </Card.Body>
+            <Form onSubmit={handleSubmit}>
+                <Card.Body>
+                    <Card.Title>Team Principle: {teamPrincipleName}
+                        {isEdit ? <Form.Select name='team_principle_id' onChange={handleChange}>{teamPrincipleChoices}</Form.Select> : ""}
+                    </Card.Title>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroup.Item>Constructor: {constructorName} <br /> Points: {firstDriverPoints + secondDriverPoints} {isEdit ? <Form.Select name='constructor_id' onChange={handleChange}>{constructorStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
+                    <ListGroup.Item>Driver: {firstDriverName} <br />Points: {firstDriverPoints} {isEdit ? <Form.Select name='first_driver_id' onChange={handleChange}>{driverStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
+                    <ListGroup.Item>Driver: {secondDriverName} <br />Points: {secondDriverPoints} <br />{isEdit ? <Form.Select name='second_driver_id' onChange={handleChange}>{driverStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                    <Button onClick={() => onDeleteClick(id)}>Delete</Button>
+                    <Button type='submit' >Save</Button>
+                    <Button onClick={() => setIsEdit(true)}>Edit</Button>
+                    {/* {isEdit ? <Button type='submit' >Save</Button> : <Button onClick={() => setIsEdit(true)}>Edit</Button>} */}
+
+
+                </Card.Body>
+            </Form>
         </Card>
     )
 }
