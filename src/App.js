@@ -6,6 +6,7 @@ import NavigationBar from './components/NavigationBar';
 import DriverStandingsCards from './components/DriverStandingsCards';
 import TeamPrincipleStandingsCards from './components/TeamPrincipleStandingsCards';
 import ConstructorStandings from './components/ConstructorStandings';
+import CreateTeams from './components/CreateTeams';
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
         <NavigationBar/>
         {/* <DriverStandingsCards/> */}
         {/* <TeamPrincipleStandingsCards/> */}
-        <ConstructorStandings/>
+        {/* <ConstructorStandings/> */}
+        <CreateTeams/>
     </>
 
   );
