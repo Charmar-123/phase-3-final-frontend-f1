@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import FantasyLeagueCard from './FantasyLeagueCard';
 
 
-const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStandings, fantasyLeagueTeams, handlePostData }) => {
+const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStandings, fantasyLeagueTeams, handlePostData, handleDeleteCard }) => {
     // const [fantasyLeagueTeams, setFantasyLeagueTeams] = useState([])
 
     // useEffect(()=> {
@@ -32,18 +32,20 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
         const firstDriver = driverStandings.filter(t => t.id == first_driver_id)
         const secondDriver = driverStandings.filter(t => t.id == second_driver_id)
 
-        console.log(constructor[0].points);
         return(
             <FantasyLeagueCard
             key={id}
+            id={id}
             teamPrincipleName={teamPrinciple[0].name}
             constructorName={constructor[0].name}
-            constuctorPoints={constructor[0].points}
+            // constuctorPoints={constructor[0].points}
             firstDriverName={firstDriver[0].name}
             firstDriverPoints={firstDriver[0].points}
             secondDriverName={secondDriver[0].name}
             secondDriverPoints={secondDriver[0].points}
             image_url={constructor[0].image_url}
+
+            handleDeleteCard={handleDeleteCard}
             />
         )
 
