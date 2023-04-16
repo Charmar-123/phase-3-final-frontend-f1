@@ -8,10 +8,12 @@ import { Row, Col } from 'react-bootstrap';
 
 import { useEffect, useState } from 'react';
 
+import FantasyLeagueCard from './FantasyLeagueCard';
+
 
 const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStandings }) => {
 
-    // const [teamPrincipleChoices, setTeamPrincipleChoices] = useState([])
+    const [fantasyLeagueTeams, setFantasyLeagueTeams] = useState([])
 
 
     const teamPrincipleChoices = teamPrincipleStandings.map(({ id, name }) => {
@@ -80,26 +82,35 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
           })
             .then((r) => r.json())
             .then((data) => {
-
+                
+                setFantasyLeagueTeams([...fantasyLeagueTeams, data])
+                console.log(fantasyLeagueTeams);
             });
     };
 
-    const handleChangeTeamPrinciple = (e) => {
-        const { name, value, label } = e.target;
-        setFormData({ ...formData, [name]: teamPrincipleStandings.filter(t => t.id == value)});
+    const handleChange= (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value});
     };
-    const handleChangeConstructor = (e) => {
-        const { name, value, label } = e.target;
-        setFormData({ ...formData, [name]: constructorStandings.filter(t => t.id == value)});
-    };
-    const handleChangeFirstDriver = (e) => {
-        const { name, value, label } = e.target;
-        setFormData({ ...formData, [name]: driverStandings.filter(t => t.id == value)});
-    };
-    const handleChangeSecondDriver = (e) => {
-        const { name, value, label } = e.target;
-        setFormData({ ...formData, [name]: driverStandings.filter(t => t.id == value)});
-    };
+
+    const fantasyLeagueTeamCards = fantasyLeagueTeams.map(({id, team_principle_id, constructor_id, first_driver_id, second_driver_id}) => {
+        const teamPrincipleName = teamPrincipleStandings.filter(t => t.id == team_principle_id)
+        
+        const constructorName = constructorStandings.filter(t => t.id == constructor_id)
+        const firstDriverName = driverStandings.filter(t => t.id == first_driver_id)
+        const secondDriverName = driverStandings.filter(t => t.id == second_driver_id)
+        console.log(secondDriverName[0].name);
+        return(
+            <FantasyLeagueCard
+            key={id}
+            teamPrincipleName={teamPrincipleName[0].name}
+            constructorName={constructorName[0].name}
+            firstDriverName={firstDriverName[0].name}
+            secondDriverName={secondDriverName[0].name}
+            />
+        )
+
+    })
 
 
     return (
@@ -115,24 +126,24 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
 
                                 <ListGroup.Item>
 
-                                    <Form.Select name='teamPrincipleID' onChange={handleChangeTeamPrinciple} aria-label="Default select example">
+                                    <Form.Select name='team_principle_id' onChange={handleChange} aria-label="Default select example">
                                         <option>Select Team Principle</option>
                                         {teamPrincipleChoices}
                                     </Form.Select>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
-                                    <Form.Select name='constructorID'  onChange={handleChangeConstructor} aria-label="Default select example">
+                                    <Form.Select name='constructor_id'  onChange={handleChange} aria-label="Default select example">
                                         <option>Select Constructor</option>
                                         {constructorStandingsChoices}
                                     </Form.Select>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row className="justify-content-center">
-                                        <Form.Select name='firstDriverID'  onChange={handleChangeFirstDriver} aria-label="Default select example" style={{ width: '10rem' }}>
+                                        <Form.Select name='first_driver_id'  onChange={handleChange} aria-label="Default select example" style={{ width: '10rem' }}>
                                             <option>First Driver</option>
                                             {driverStandingsChoices}
                                         </Form.Select>
-                                        <Form.Select name='secondDriverID'  onChange={handleChangeSecondDriver} aria-label="Default select example" style={{ marginLeft: "4rem", width: '10rem' }}>
+                                        <Form.Select name='second_driver_id'  onChange={handleChange} aria-label="Default select example" style={{ marginLeft: "4rem", width: '10rem' }}>
                                             <option>Second Driver</option>
                                             {driverStandingsChoices}
                                         </Form.Select>
@@ -147,6 +158,9 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
 
                     </Card.Body>
                 </Card>
+                <Row>
+                    {fantasyLeagueTeamCards}
+                </Row>
             </Col>
 
 
