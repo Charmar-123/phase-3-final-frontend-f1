@@ -5,13 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import NavigationBar from './components/NavigationBar';
 import DriverStandingsCards from './components/DriverStandingsCards';
 import TeamPrincipleStandingsCards from './components/TeamPrincipleStandingsCards';
+import ConstructorStandings from './components/ConstructorStandings';
 
 const App = () => {
   return (
     <>
         <NavigationBar/>
         {/* <DriverStandingsCards/> */}
-        <TeamPrincipleStandingsCards/>
+        {/* <TeamPrincipleStandingsCards/> */}
+        <ConstructorStandings/>
     </>
 
   );
