@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 
 
-const TeamPrincipleStandingsCards = () => {
+const TeamPrincipleStandingsCards = ({teamPrincipleStandings}) => {
 
-    const [teamPrincipleStandings, setTeamPrincipleStandings] = useState([])
+    // const [teamPrincipleStandings, setTeamPrincipleStandings] = useState([])
 
-    useEffect(() => {
-        fetch("http://localhost:9292/team_principles")
-            .then(res => res.json())
-            .then(data => {
-                setTeamPrincipleStandings(data.sort((a,b)=>a.constructor.position-b.constructor.position))
-            })
+    // useEffect(() => {
+    //     fetch("http://localhost:9292/team_principles")
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             setTeamPrincipleStandings(data.sort((a,b)=>a.constructor.position-b.constructor.position))
+    //         })
 
-    }, [])
+    // }, [])
 
     const teamPrincipleStandingsCards = teamPrincipleStandings.map(({ id, name,constructor, image_url }) => {
         return (
