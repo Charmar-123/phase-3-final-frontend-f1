@@ -9,6 +9,12 @@ import TeamPrincipleStandingsCards from './components/TeamPrincipleStandingsCard
 import ConstructorStandings from './components/ConstructorStandings';
 import CreateTeams from './components/CreateTeams';
 
+
+// React - Router
+
+import { Routes, Route } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+
 const App = () => {
 
   const [driverStandings, setDriverStandings] = useState([])
@@ -76,10 +82,23 @@ const App = () => {
   return (
     <>
       <NavigationBar />
-      {/* <DriverStandingsCards  driverStandings={driverStandings}/> */}
-      {/* <TeamPrincipleStandingsCards teamPrincipleStandings={teamPrincipleStandings}/> */}
-      {/* <ConstructorStandings constructorStandings={constructorStandings}/> */}
-      <CreateTeams handleUpdateCard={handleUpdateCard} handleDeleteCard={handleDeleteCard} handlePostData={handlePostData} fantasyLeagueTeams={fantasyLeagueTeams} driverStandings={driverStandings} teamPrincipleStandings={teamPrincipleStandings} constructorStandings={constructorStandings} />
+
+      <Routes>
+        <Route exact path='/'
+          element={<ConstructorStandings constructorStandings={constructorStandings} />} />
+          
+
+        <Route path='/driver_standings' element={<DriverStandingsCards driverStandings={driverStandings} />}/>
+
+
+        <Route path='/team_principles' element={ <TeamPrincipleStandingsCards teamPrincipleStandings={teamPrincipleStandings} />} />
+       
+
+        <Route path='/create_teams' element={<CreateTeams handleUpdateCard={handleUpdateCard} handleDeleteCard={handleDeleteCard} handlePostData={handlePostData} fantasyLeagueTeams={fantasyLeagueTeams} driverStandings={driverStandings} teamPrincipleStandings={teamPrincipleStandings} constructorStandings={constructorStandings} />} />
+
+
+      </Routes>
+
     </>
 
   );
