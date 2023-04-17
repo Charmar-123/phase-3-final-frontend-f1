@@ -15,10 +15,6 @@ const TeamPrincipleCard = ({ id, name,constructorName, constructorPoints, constr
       <ListGroup.Item>Points: {constructorPoints}</ListGroup.Item>
       <ListGroup.Item>Position: {constructorPosition}</ListGroup.Item>
     </ListGroup>
-    <Card.Body>
-      <Button href="#">Card Link</Button>
-      <Button href="#">Another Link</Button>
-    </Card.Body>
   </Card>
   )
 }
