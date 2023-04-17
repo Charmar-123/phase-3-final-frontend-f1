@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriverName, secondDriverName, image_url, firstDriverPoints, secondDriverPoints, handleDeleteCard, teamPrincipleChoices, handleUpdateCard, constructorStandingsChoices, driverStandingsChoices }) => {
+const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriverName, secondDriverName, image_url, firstDriverPoints, secondDriverPoints, handleDeleteCard, teamPrincipleChoices, handleUpdateCard, constructorStandingsChoices, driverStandingsChoices, constructorID, teamPrincipleID, firstDriverID,secondDriverID   }) => {
 
     const [isEdit, setIsEdit] = useState(false)
 
@@ -53,13 +53,28 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
             <Form onSubmit={handleSubmit}>
                 <Card.Body>
                     <Card.Title>Team Principle: {teamPrincipleName}
-                        {isEdit ? <Form.Select name='team_principle_id' onChange={handleChange}>{teamPrincipleChoices}</Form.Select> : ""}
+                        {isEdit ? <Form.Select name='team_principle_id' onChange={handleChange}>{[...teamPrincipleChoices, <option selected
+                     value={teamPrincipleID}>{teamPrincipleName}</option>]}</Form.Select> : ""}
                     </Card.Title>
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                    <ListGroup.Item>Constructor: {constructorName} <br /> Points: {firstDriverPoints + secondDriverPoints} {isEdit ? <Form.Select name='constructor_id' onChange={handleChange}>{constructorStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
-                    <ListGroup.Item>Driver: {firstDriverName} <br />Points: {firstDriverPoints} {isEdit ? <Form.Select name='first_driver_id' onChange={handleChange}>{driverStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
-                    <ListGroup.Item>Driver: {secondDriverName} <br />Points: {secondDriverPoints} <br />{isEdit ? <Form.Select name='second_driver_id' onChange={handleChange}>{driverStandingsChoices}</Form.Select> : ""}</ListGroup.Item>
+
+                    <ListGroup.Item>Constructor: {constructorName} <br /> Points: {firstDriverPoints + secondDriverPoints} 
+                    {isEdit ? <Form.Select name='constructor_id' onChange={handleChange}>{[...constructorStandingsChoices, <option selected
+                     value={constructorID}>{constructorName}</option>]}</Form.Select> : ""}
+                     </ListGroup.Item>
+
+                    <ListGroup.Item>Driver: {firstDriverName} <br />Points: {firstDriverPoints} 
+                    {isEdit ? <Form.Select name='first_driver_id' onChange={handleChange}>{[...driverStandingsChoices, <option selected
+                     value={firstDriverID}>{firstDriverName}</option> ]}
+                    </Form.Select> : ""}
+                    </ListGroup.Item>
+
+                    <ListGroup.Item>Driver: {secondDriverName} <br />Points: {secondDriverPoints} <br />
+                    {isEdit ? <Form.Select name='second_driver_id' onChange={handleChange}>{[...driverStandingsChoices, <option selected
+                     value={secondDriverID}>{secondDriverName}</option> ]}
+                    </Form.Select> : ""}
+                    </ListGroup.Item>
                 </ListGroup>
                 <Card.Body>
                     <Button onClick={() => onDeleteClick(id)}>Delete</Button>

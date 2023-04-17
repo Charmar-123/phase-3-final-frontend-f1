@@ -79,6 +79,11 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
             secondDriverPoints={secondDriver[0].points}
             image_url={constructor[0].image_url}
 
+            constructorID={constructor[0].id}
+            teamPrincipleID={teamPrinciple[0].id}
+            firstDriverID={firstDriver[0].id}
+            secondDriverID={secondDriver[0].id}
+
             handleDeleteCard={handleDeleteCard}
             handleUpdateCard={handleUpdateCard}
 
