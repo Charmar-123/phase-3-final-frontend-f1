@@ -20,9 +20,16 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
 
     }
 
+    const setInitialValues = () => {
+        setFormData({team_principle_id: teamPrincipleID,
+        constructor_id: constructorID,
+        first_driver_id: firstDriverID, second_driver_id: secondDriverID })
+    }
+
     const handleChange= (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value});
+        setFormData({ ...formData, [name]: parseInt(value)});
+        console.log(formData);
     };
 
     const handleSubmit = (e) => {
@@ -61,7 +68,7 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
 
                     <ListGroup.Item>Constructor: {constructorName} <br /> Points: {firstDriverPoints + secondDriverPoints} 
                     {isEdit ? <Form.Select name='constructor_id' onChange={handleChange}>{[...constructorStandingsChoices, <option selected
-                     value={constructorID}>{constructorName}</option>]}</Form.Select> : ""}
+                     value={constructorID}>{constructorName}</option>]} </Form.Select> : ""}
                      </ListGroup.Item>
 
                     <ListGroup.Item>Driver: {firstDriverName} <br />Points: {firstDriverPoints} 
@@ -79,7 +86,9 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
                 <Card.Body>
                     <Button onClick={() => onDeleteClick(id)}>Delete</Button>
                     <Button type='submit' >Save</Button>
-                    <Button onClick={() => setIsEdit(true)}>Edit</Button>
+                    <Button onClick={() => {
+                        setInitialValues()
+                        setIsEdit(true)}}>Edit</Button>
                     {/* {isEdit ? <Button type='submit' >Save</Button> : <Button onClick={() => setIsEdit(true)}>Edit</Button>} */}
 
 
