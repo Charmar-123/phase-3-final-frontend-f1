@@ -85,11 +85,10 @@ const FantasyLeagueCard = ({ id, teamPrincipleName, constructorName, firstDriver
                 </ListGroup>
                 <Card.Body>
                     <Button onClick={() => onDeleteClick(id)}>Delete</Button>
-                    <Button type='submit' >Save</Button>
+                    {isEdit? <Button type='submit' >Save</Button> : ""}
                     <Button onClick={() => {
                         setInitialValues()
                         setIsEdit(true)}}>Edit</Button>
-                    {/* {isEdit ? <Button type='submit' >Save</Button> : <Button onClick={() => setIsEdit(true)}>Edit</Button>} */}
 
 
                 </Card.Body>

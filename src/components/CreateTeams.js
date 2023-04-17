@@ -127,9 +127,9 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
 
 
     return (
-        <Container>
+        <Container >
 
-            <Col>
+            <Col style={{marginLeft: "15rem"}}>
                 <Card style={{ width: '40rem' }}>
                     <Card.Body>
                         <Card.Title>Create your own F1 fantasy league!</Card.Title>
@@ -171,7 +171,11 @@ const CreateTeams = ({ driverStandings, teamPrincipleStandings, constructorStand
 
                     </Card.Body>
                 </Card>
+                <Col>
+                <hr></hr>
+                </Col>
                 <Row>
+                    
                     {fantasyLeagueTeamCards}
                 </Row>
             </Col>
