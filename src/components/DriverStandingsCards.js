@@ -24,6 +24,9 @@ const DriverStandingsCards = ({driverStandings}) => {
             < DriverCard
                 key={id}
                 name={name}
+                points={points}
+                position={position}
+                wins={wins}
                 image_url={image_url}
 
             />
