@@ -10,6 +10,8 @@ F1Wiki is a single page application that allows the user to:
 - See the team principle stats.
 - Create their own fantasy league teams!
 
+![](https://github.com/Charmar-123/phase-3-final-frontend-f1/blob/main/React-App-Google-Chrome-2023-04.gif)
+
 
 ## Tech
 
