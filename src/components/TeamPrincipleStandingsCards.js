@@ -16,11 +16,12 @@ const TeamPrincipleStandingsCards = ({teamPrincipleStandings}) => {
 
     // }, [])
 
-    const teamPrincipleStandingsCards = teamPrincipleStandings.map(({ id, name,constructor, image_url }) => {
+    const teamPrincipleStandingsCards = teamPrincipleStandings.map(({ id, name,constructor, image_url, nationality }) => {
         return (
             <TeamPrincipleCard
             key={id}
             name={name}
+            nationality={nationality}
             constructorName={constructor.name}
             constructorPoints={constructor.points}
             constructorPosition={constructor.position}
