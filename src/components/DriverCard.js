@@ -14,10 +14,6 @@ const DriverCard = ({id, name, points, position, wins, image_url}) => {
         <ListGroup.Item>Points: {points}</ListGroup.Item>
         <ListGroup.Item>Wins: {wins}</ListGroup.Item>
       </ListGroup>
-      <Card.Body>
-        <Button href="#">Card Link</Button>
-        <Button href="#">Another Link</Button>
-      </Card.Body>
     </Card>
   )
 }
