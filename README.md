@@ -13,9 +13,9 @@ F1Wiki is a single page application that allows the user to:
 ![](https://github.com/Charmar-123/phase-3-final-frontend-f1/blob/main/React-App-Google-Chrome-2023-04.gif)
 
 
-## Usuage 
+## Usage 
 
-Download the backend sinatra app https://github.com/Charmar-123/phase-3-final-frontend-f1 and run 'rake server' in the terminal.
+Download the backend sinatra app https://github.com/Charmar-123/phase-3-final-backend-f1 and run 'rake server' in the terminal.
 
 Run npm i && npm start in the terminal of the react app.
 
